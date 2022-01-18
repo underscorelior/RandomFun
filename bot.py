@@ -7,6 +7,7 @@ from utils import logger
 from dotenv import load_dotenv
 
 
+
 bot = commands.Bot(command_prefix="rf!",intents=discord.Intents.all(),allowed_mentions=discord.AllowedMentions(everyone=False))
 slash = discord_slash.SlashCommand(bot, sync_commands=True)
 
