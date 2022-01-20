@@ -18,14 +18,13 @@ async def on_ready(): logger.info(f"Logged in as {bot.user.name} at {time.ctime(
 bot.load_extension("utils.errorhandling")
 bot.load_extension('jishaku')
 bot.load_extension("cog_reloader")
-
 extfilenames = (
 	'games',
 	'random',
 	'currency',
 	'info',
 	'media',
-	# 'music'
+	'music'
 )
 for extfn in extfilenames:
 	for filename in os.listdir(f'./cogs/{extfn}'):
