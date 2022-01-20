@@ -12,9 +12,9 @@ bot = commands.Bot(command_prefix="rf!",intents=discord.Intents.all(),allowed_me
 slash = discord_slash.SlashCommand(bot, sync_commands=True)
 
 @bot.event 
-async def on_ready(): logger.info(f"Logged in as {bot.user.name} at {time.ctime()}"); await bot.change_presence(status=discord.Status.dnd,activity=discord.Game("rm -rf slash"))
+async def on_ready(): 
+	logger.info(f"Logged in as {bot.user.name} at {time.ctime()}"); await bot.change_presence(status=discord.Status.dnd,activity=discord.Game("rm -rf slash"))
 	
-
 bot.load_extension("utils.errorhandling")
 bot.load_extension('jishaku')
 bot.load_extension("cog_reloader")
