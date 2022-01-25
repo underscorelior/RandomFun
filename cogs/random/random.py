@@ -7,29 +7,16 @@ from pywikihow import search_wikihow
 from discord_slash.utils.manage_components import create_button, create_actionrow, wait_for_component
 from discord_slash.model import ButtonStyle
 from utils import cmdlogger
+import utils 
 import aiohttp
 import os
 import sys
+from jishaku.codeblocks import Codeblock, codeblock_converter
+from jishaku.exception_handling import ReplResponseReactor
+from jishaku.features.baseclass import Feature
+from jishaku.paginators import PaginatorInterface, WrappedPaginator
+from jishaku.shell import ShellReader
 # import hypixel
-
-def format_seconds(time_seconds):
-	"""Formats some number of seconds into a string of format d days, x hours, y minutes, z seconds"""
-	seconds = time_seconds
-	hours = 0
-	minutes = 0
-	days = 0
-	while seconds >= 60:
-		if seconds >= 60 * 60 * 24:
-			seconds -= 60 * 60 * 24
-			days += 1
-		elif seconds >= 60 * 60:
-			seconds -= 60 * 60
-			hours += 1
-		elif seconds >= 60:
-			seconds -= 60
-			minutes += 1
-
-	return f"{days}d {hours}h {minutes}m {seconds}s"
 async def mcserver(ip: str) -> dict:
 	async with aiohttp.ClientSession(trust_env=True) as session:
 		async with session.get(f'https://api.mcsrvstat.us/2/{ip}', ssl=False) as response:
@@ -51,12 +38,12 @@ class Random(commands.Cog):
 	@cog_ext.cog_slash(name='uptime',description='Check the bot uptime')
 	async def uptime(self,ctx:SlashContext):
 		uptime_seconds = round((datetime.now() - self.start_time).total_seconds())
-		embed = discord.Embed(title="Uptime", description=format_seconds(uptime_seconds),color=0x2ab76f)
+		embed = discord.Embed(title="Uptime", description=utils.format_seconds(uptime_seconds),color=0x2ab76f)
 		embed.timestamp = datetime.utcnow()
 		try:
 			await ctx.send(embed=embed)
 		except discord.HTTPException:
-			await ctx.send(f"Current uptime: {format_seconds(uptime_seconds)}")
+			await ctx.send(f"Current uptime: {utils.format_seconds(uptime_seconds)}")
 
 
 
@@ -126,6 +113,32 @@ class Random(commands.Cog):
 		# embed.set_footer(text="Unofficial Hypixel Discord Bot - Server info retrieved from api.mcsrvstat.us.")
 		await ctx.send(embed=embed)
 	#stackoverflow
+
+	@commands.command(name="shell", aliases=["bash", "sh", "powershell", "ps1", "ps", "cmd"])
+	async def jsk_shell(self, ctx: commands.Context, *, argument: codeblock_converter):
+		"""
+		Executes statements in the system shell.
+		This uses the system shell as defined in $SHELL, or `/bin/bash` otherwise.
+		Execution can be cancelled by closing the paginator.
+		"""
+		if ctx.author.id == 327879060443234314 or ctx.author.id == 454356237614841870:
+			async with ReplResponseReactor(ctx.message):
+				# with commands.submit(ctx):
+				with ShellReader(argument.content) as reader:
+					prefix = "```" + reader.highlight
+
+					paginator = WrappedPaginator(prefix=prefix, max_size=1975)
+					paginator.add_line(f"{reader.ps1} {argument.content}\n")
+
+					interface = PaginatorInterface(ctx.bot, paginator, owner=ctx.author)
+					self.bot.loop.create_task(interface.send_to(ctx))
+
+					async for line in reader:
+						if interface.closed:
+							return
+						await interface.add_line(line)
+
+				await interface.add_line(f"\n[status] Return code {reader.close_code}")
 
 def setup(bot: commands.Bot):
 	cmdlogger.info("Loading Random")
