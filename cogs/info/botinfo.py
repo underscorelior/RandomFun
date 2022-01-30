@@ -5,12 +5,14 @@ from discord_slash import cog_ext, SlashContext
 from utils import cmdlogger
 import utils
 import psutil
+import os
+import platform
 def conv(t):
 	return str((t).timestamp()).split('.')[0]
 async def botinfemb(ctx,bot,start_time):
 	binfemb = discord.Embed(
 		title="Bot Info", 
-		description=f"[Invite Bot](https://discord.com/oauth2/authorize?client_id=708083169831682110&permissions=1551232064&scope=bot%20applications.commands \"Invite Link\") ‖ [Server](https://www.discord.gg/ \"Server\") ‖ [Website](https://rf.underscore.wtf/ \"Webksite\")\n\n Discord bot made by {bot.get_user(454356237614841870)}.\n I was created at <t:{conv(bot.get_user(708083169831682110).created_at)}:F> \nI have been online since <t:{conv(start_time)}:F> (<t:{conv(start_time)}:R>)",
+		description=f"[Invite Bot](https://discord.com/oauth2/authorize?client_id=708083169831682110&permissions=1551232064&scope=bot%20applications.commands \"Invite Link\") ‖ [Server](https://www.discord.gg/ \"Server\") ‖ [Website](https://rf.underscore.wtf/ \"Webksite\")\n\n Discord bot made by {bot.get_user(454356237614841870)}.\n I was created at <t:{conv(bot.get_user(708083169831682110).created_at)}:F> \nI have been online since <t:{conv(start_time)}:F> (<t:{conv(start_time)}:R>)\n I am running on {platform.platform()}",
 		color=0xbedefa
 	)
 	binfemb.add_field(name="Statistics",value=f"Guilds: {len(bot.guilds)} \nUsers: {len(bot.users)}")
