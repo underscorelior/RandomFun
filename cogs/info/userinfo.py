@@ -102,6 +102,11 @@ class UserInfo(commands.Cog):
 	@cog_ext.cog_slash(name='userinfo',description='Check another users info!')
 	async def userinfo(self,ctx:SlashContext,user: discord.Member = None):
 		await ctx.defer()
+		await userinfoemb(ctx,user)
+
+	
+	@commands.command(aliases=["ui"])
+	async def userinfo(self,ctx,user: discord.Member = None):
 		user = user or ctx.author
 		await userinfoemb(ctx,user)
 

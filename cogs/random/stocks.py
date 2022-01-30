@@ -24,7 +24,6 @@ async def stockcd(ctx, bot, stock):
 	options.headless = True
 	driver = webdriver.Chrome(options=options)		
 	try :
-		print("1")
 		emtitle = prof["name"]
 		embed=discord.Embed(title=emtitle, description=prof["ticker"], color=0x5f5cff)
 		embed.add_field(name="Close Price:", value=f"{'{:,}'.format(cost['c'])}")
@@ -51,14 +50,10 @@ async def stockcd(ctx, bot, stock):
 		except KeyError:
 			await ctx.reply(embed=embed)
 	except KeyError:
-		print("2")
 		try:
-			print("3")
 			emtitle = prof["ticker"]
 		except KeyError:
 			await erremb(bot, ctx,f"The following stock `{stock}` is Invalid or has missing information!")
-			print("4")
-
 class Stocks(commands.Cog):
 	def __init__(self, bot):
 		self.bot: commands.Bot = bot
@@ -72,10 +67,6 @@ class Stocks(commands.Cog):
 	async def stock(self,ctx, stock = None):
 		async with ctx.channel.typing():
 			await stockcd(ctx, self.bot, stock)
-			print("Ok")
-		
-
-		
 		
 def setup(bot: commands.Bot):
 	cmdlogger.info("Loading Stocks")

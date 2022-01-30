@@ -31,6 +31,17 @@ class Random(commands.Cog):
 		httplist =[100,101,102,200,201,202,203,204,206,207,300,301,302,303,304,305,307,308,400,401,402,403,404,405,406,407,408,409,410,411,412,413,414,415,416,417,418,420,421,422,423,424,425,426,429,431,444,450,451,497,498,499,500,501,502,503,504,506,507,508,509,510,511,521,523,525,599]
 		if error == None:  
 			error = random.choice(httplist)
+		if error not in httplist:
+			error = random.choice(httplist)
+		await ctx.send(f"https://http.cat/{error}.jpg")
+
+	@commands.command()
+	async def httpcat(self,ctx,error:int = None):
+		httplist =[100,101,102,200,201,202,203,204,206,207,300,301,302,303,304,305,307,308,400,401,402,403,404,405,406,407,408,409,410,411,412,413,414,415,416,417,418,420,421,422,423,424,425,426,429,431,444,450,451,497,498,499,500,501,502,503,504,506,507,508,509,510,511,521,523,525,599]
+		if error == None:  
+			error = random.choice(httplist)
+		if error not in httplist:
+			error = random.choice(httplist)
 		await ctx.send(f"https://http.cat/{error}.jpg")
 
 
@@ -44,11 +55,20 @@ class Random(commands.Cog):
 			await ctx.send(embed=embed)
 		except discord.HTTPException:
 			await ctx.send(f"Current uptime: {utils.format_seconds(uptime_seconds)}")
+	@commands.command(aliases=["up"])
+	async def uptime(self,ctx):
+		uptime_seconds = round((datetime.now() - self.start_time).total_seconds())
+		embed = discord.Embed(title="Uptime", description=utils.format_seconds(uptime_seconds),color=0x2ab76f)
+		embed.timestamp = datetime.utcnow()
+		try:
+			await ctx.send(embed=embed)
+		except discord.HTTPException:
+			await ctx.send(f"Current uptime: {utils.format_seconds(uptime_seconds)}")
 
 
 
 	@cog_ext.cog_slash(name='wikihow',description='Parse through wikihow articles')
-	async def wikihow(self,ctx:SlashContext,wiki:str):
+	async def wikihowsh(self,ctx:SlashContext,wiki:str):
 		howtos = ""
 		max_results = 1
 		how_tos = search_wikihow(wiki, max_results)
@@ -61,12 +81,26 @@ class Random(commands.Cog):
 		button_ctx = await wait_for_component(client=self.bot,components=components)
 		if button_ctx.custom_id == "h":
 			await message.delete()
+
+	@commands.command(aliases=["wh"])
+	async def wikihow(self,ctx,wiki):
+		howtos = ""
+		max_results = 1
+		how_tos = search_wikihow(wiki, max_results)
+		howtoto =  how_tos[0]
+		for step in range(len(howtoto.steps)):
+			strep = howtoto.steps[step]
+			howtos = howtos + str(strep.number) + " - " + strep.summary + "\n"
+		await ctx.send(f"**Query: {wiki}** **\n\nArticle Name:** *{howtoto.title}* ```\n{howtos}```")
 	
 
 	@cog_ext.cog_slash(name='braille',description='Translate english into braille. ⠞⠗⠁⠝⠎⠅⠁⠞⠑ ⠑⠝⠛⠅⠊⠎⠓ ⠊⠝⠞⠕ ⠃⠗⠁⠊⠅⠅⠑.')
 	async def braille(self,ctx:SlashContext,english):
 		await ctx.send(f'English: {english} \nBraille: {(str(english).lower()).replace("a", "⠁").replace("b", "⠃").replace("c", "⠉").replace("d", "⠙").replace("e", "⠑").replace("f", "⠋").replace("g", "⠛").replace("h", "⠓").replace("i", "⠊").replace("j", "⠚").replace("k", "⠅").replace("l", "⠅").replace("m", "⠍").replace("n", "⠝").replace("o", "⠕").replace("p", "⠏").replace("q", "⠟").replace("r", "⠗").replace("s", "⠎").replace("t", "⠞").replace("u", "⠥").replace("v", "⠧").replace("w", "⠺").replace("x", "⠭").replace("y", "⠽").replace("z", "⠵")}')
 
+	@commands.command()
+	async def braille(self,ctx,english):
+		await ctx.send(f'English: {english} \nBraille: {(str(english).lower()).replace("a", "⠁").replace("b", "⠃").replace("c", "⠉").replace("d", "⠙").replace("e", "⠑").replace("f", "⠋").replace("g", "⠛").replace("h", "⠓").replace("i", "⠊").replace("j", "⠚").replace("k", "⠅").replace("l", "⠅").replace("m", "⠍").replace("n", "⠝").replace("o", "⠕").replace("p", "⠏").replace("q", "⠟").replace("r", "⠗").replace("s", "⠎").replace("t", "⠞").replace("u", "⠥").replace("v", "⠧").replace("w", "⠺").replace("x", "⠭").replace("y", "⠽").replace("z", "⠵")}')
 	@commands.command()
 	async def restart(self, ctx):
 		if ctx.author.id == 454356237614841870:

@@ -57,7 +57,7 @@ async def serverinfoemb(ctx, guild):
 		gbtr = "Boost Tier 3"
 	else:
 		gbtr = "No Boosts"
-	sinfemb.add_field(name="Other",value=f"🏷️ Roles: {len(guild.roles)} \n📁 Filesize Limit: {guild.filesize_limit/1000} KB \n🔈Bitrate Limit: {guild.bitrate_limit/1000} KB \n<:BOOST:925678571266125875> Boost Tier: {gbtr} / *Boosts: {guild.premium_subscription_count}*\n📅 Created At: <t:{scrts}:F> (<t:{scrts}:R>)")
+	sinfemb.add_field(name="Other",value=f"🏷️ Roles: {len(guild.roles)} \n📁 Filesize Limit: {guild.filesize_limit/1000} KB \n🔈Bitrate Limit: {guild.bitrate_limit/1000000} MB \n<:BOOST:925678571266125875> Boost Tier: {gbtr} / *Boosts: {guild.premium_subscription_count}*\n📅 Created At: <t:{scrts}:F> (<t:{scrts}:R>)")
 	sinfemb.set_thumbnail(url=guild.icon_url)
 	sinfemb.timestamp = datetime.datetime.utcnow()
 	sjnts = str((guild.get_member(ctx.author.id).joined_at)).split(' ')[0]
@@ -77,6 +77,10 @@ class ServerInfo(commands.Cog):
 		guild = ctx.guild
 		await serverinfoemb(ctx, guild)
 
+	@commands.command(aliases=["si"])
+	async def serverinfo(self,ctx):
+		guild = ctx.guild
+		await serverinfoemb(ctx, guild)
 		
 		
 

@@ -17,7 +17,7 @@ async def roleinfoemb(ctx, role):
 	rmemm = ""
 	for member in role.members:
 		rmemm += f"{member.mention} "
-	rinfemb.add_field(name="Info",value=f"📅 Created At: {rcrts} \n🎨 Color: {rclr} \n🔧 Permissions: \n```{await permcheck(int(role.permissions.value))}``` \n👥 Members: {rmemm}")
+	rinfemb.add_field(name="Info",value=f"📅 Created At: {rcrts} \n🎨 Color: {rclr} \n🔧 Permissions: \n```{await permcheck(int(role.permissions.value))}``` \n👥 Members: {len(rmemm)}")
 	rinfemb.timestamp = datetime.datetime.utcnow()
 	return await ctx.send(embed=rinfemb)
 class RoleInfo(commands.Cog):
@@ -28,6 +28,9 @@ class RoleInfo(commands.Cog):
 	async def roleinfo(self,ctx:SlashContext,role: discord.Role):
 		await ctx.defer()
 		await roleinfoemb(ctx, role)	
+	@commands.command(aliases=["ri"])
+	async def roleinfo(self,ctx, role: discord.Role):
+		await roleinfoemb(ctx, role)
 		
 def setup(bot: commands.Bot):
 	cmdlogger.info("Loading RoleInfo")
