@@ -8,9 +8,8 @@ import random
 import finnhub
 import asyncio
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import NoSuchElementException, ElementNotInteractableException
 
 async def stockcd(ctx, bot, stock):
 	if stock == None:
@@ -38,7 +37,10 @@ async def stockcd(ctx, bot, stock):
 		try:
 			driver.get(f'https://www.tradingview.com/chart/?symbol={prof["exchange"].split(" ")[0]}%3A{stock}')
 			asyncio.sleep(0.2)
-			driver.find_element_by_class_name("button-qM2OSl9-").click()
+			try:
+				driver.find_element_by_class_name("button-qM2OSl9-").click()
+			except NoSuchElementException or ElementNotInteractableException:
+				pass
 			driver.set_window_size(1280,720)                                                                                                             
 			driver.find_element_by_class_name('chart-markup-table').screenshot('web_screenshot.png')
 
@@ -68,7 +70,9 @@ class Stocks(commands.Cog):
 	
 	@commands.command(aliases=['stocks'])
 	async def stock(self,ctx, stock = None):
-		await stockcd(ctx, self.bot, stock)
+		async with ctx.channel.typing():
+			await stockcd(ctx, self.bot, stock)
+			print("Ok")
 		
 
 		
