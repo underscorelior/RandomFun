@@ -16,7 +16,7 @@ async def botinfemb(ctx,bot,start_time):
 		color=0xbedefa
 	)
 	binfemb.add_field(name="Statistics",value=f"Guilds: {len(bot.guilds)} \nUsers: {len(bot.users)}")
-	binfemb.add_field(name="System",value=f"CPU: {round(psutil.cpu_percent(),1)}% \nMemory: {psutil.virtual_memory().percent}% \nStorage: {psutil.disk_usage('/').precent}%")
+	binfemb.add_field(name="System",value=f"CPU: {round(psutil.cpu_percent(),1)}% \nMemory: {psutil.virtual_memory().percent}% \nStorage: {psutil.disk_usage('/').percent}%")
 	binfemb.timestamp = datetime.utcnow()
 	return await ctx.send(embed=binfemb)
 class RoleInfo(commands.Cog):
