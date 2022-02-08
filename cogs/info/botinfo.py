@@ -19,7 +19,7 @@ async def botinfemb(ctx,bot,start_time):
 	binfemb.add_field(name="System",value=f"CPU: {round(psutil.cpu_percent(),1)}% \nMemory: {psutil.virtual_memory().percent}% \nStorage: {psutil.disk_usage('/').percent}%")
 	binfemb.timestamp = datetime.utcnow()
 	return await ctx.send(embed=binfemb)
-class RoleInfo(commands.Cog):
+class BotInfo(commands.Cog):
 	def __init__(self, bot):
 		self.bot: commands.Bot = bot
 		self.start_time = datetime.now()
@@ -34,4 +34,4 @@ class RoleInfo(commands.Cog):
 		
 def setup(bot: commands.Bot):
 	cmdlogger.info("Loading Botinfo")
-	bot.add_cog(RoleInfo(bot))
+	bot.add_cog(BotInfo(bot))

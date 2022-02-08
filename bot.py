@@ -1,6 +1,7 @@
 import discord
 import discord_slash
 from discord.ext import commands
+from discord_components import DiscordComponents
 
 import os
 import time
@@ -12,7 +13,7 @@ slash = discord_slash.SlashCommand(bot, sync_commands=True)
 
 @bot.event 
 async def on_ready(): 
-	logger.info(f"Logged in as {bot.user.name} at {time.ctime()}"); await bot.change_presence(status=discord.Status.dnd,activity=discord.Game("rm -rf slash"))
+	logger.info(f"Logged in as {bot.user.name} at {time.ctime()}"); await bot.change_presence(status=discord.Status.dnd,activity=discord.Game("rm -rf slash")); DiscordComponents(bot)
 	
 bot.load_extension("utils.errorhandling")
 bot.load_extension('jishaku')
@@ -22,9 +23,11 @@ extfilenames = (
 	'random',
 	'currency',
 	'info',
-	'media',
-	'music'
+	# 'media',
+	# 'music',
+	'minecraft'
 )
+
 for extfn in extfilenames:
 	for filename in os.listdir(f'./cogs/{extfn}'):
 		if filename.endswith('.py'):
@@ -32,6 +35,7 @@ for extfn in extfilenames:
 				bot.load_extension(f"cogs.{extfn}.{filename[:-3]}")
 			except Exception as e:
 				logger.error(f'Failed to load extension {extfn}.{filename}.')
+				logger.error(e)
 
 load_dotenv()
 token = os.getenv("TOKEN")

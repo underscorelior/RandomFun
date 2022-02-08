@@ -2,15 +2,19 @@ import datetime
 import discord
 from discord.ext import commands
 from discord_slash import cog_ext, SlashContext
+from discord_slash.utils.manage_commands import create_option
 from utils import cmdlogger, erremb
 import json
 import random
 import finnhub
 import asyncio
+from dotenv import load_dotenv
+import os
 from selenium import webdriver
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException, ElementNotInteractableException
-
+load_dotenv()
+api_key = os.getenv("STAPI")
 async def stockcd(ctx, bot, stock):
 	if stock == None:
 		with open('data/stocks.json') as fp:
@@ -35,7 +39,7 @@ async def stockcd(ctx, bot, stock):
 		embed.timestamp = datetime.datetime.utcnow()
 		try:
 			driver.get(f'https://www.tradingview.com/chart/?symbol={prof["exchange"].split(" ")[0]}%3A{stock}')
-			asyncio.sleep(0.2)
+			await asyncio.sleep(0.2)
 			try:
 				driver.find_element_by_class_name("button-qM2OSl9-").click()
 			except NoSuchElementException or ElementNotInteractableException:
@@ -46,7 +50,7 @@ async def stockcd(ctx, bot, stock):
 			driver.quit()
 			myfile = discord.File('web_screenshot.png')
 			embed.set_image(url="attachment://web_screenshot.png")
-			await ctx.reply(file=myfile, embed=embed)
+			await ctx.reply(embed=embed,file=myfile)
 		except KeyError:
 			await ctx.reply(embed=embed)
 	except KeyError:
@@ -58,7 +62,7 @@ class Stocks(commands.Cog):
 	def __init__(self, bot):
 		self.bot: commands.Bot = bot
 	
-	@cog_ext.cog_slash(name='stocks',description='Check some info about a stock!',guild_ids=[566694134212198481])
+	@cog_ext.cog_slash(name='stocks',description='Check some info about a stock!',options=[create_option(name="stock",description="Check some info about a stock!",option_type=3,required=False)])
 	async def stockslash(self,ctx:SlashContext, stock = None):
 		await ctx.defer()
 		await stockcd(ctx, self.bot, stock)

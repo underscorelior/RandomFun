@@ -5,6 +5,7 @@ from discord_slash import cog_ext, SlashContext
 from utils import cmdlogger
 
 async def serverinfoemb(ctx, guild):
+	print("OK")
 	if guild.description == None:
 		udesc = "No description set"
 	else:
@@ -58,21 +59,24 @@ async def serverinfoemb(ctx, guild):
 	else:
 		gbtr = "No Boosts"
 	sinfemb.add_field(name="Other",value=f"🏷️ Roles: {len(guild.roles)} \n📁 Filesize Limit: {guild.filesize_limit/1000} KB \n🔈Bitrate Limit: {guild.bitrate_limit/1000000} MB \n<:BOOST:925678571266125875> Boost Tier: {gbtr} / *Boosts: {guild.premium_subscription_count}*\n📅 Created At: <t:{scrts}:F> (<t:{scrts}:R>)")
-	sinfemb.set_thumbnail(url=guild.icon_url)
+	if guild.icon is not None: sinfemb.set_thumbnail(url=guild.icon_url)
 	sinfemb.timestamp = datetime.datetime.utcnow()
 	sjnts = str((guild.get_member(ctx.author.id).joined_at)).split(' ')[0]
 
 
 	sinfemb.set_footer(text = f"⚙️ Owner: {guild.owner} ‖🌐 Region: {guild.region} ‖ {ctx.author} joined at {sjnts}")
-	sinfemb.set_image(url=guild.banner_url)
+
+
+	if guild.banner is not None: sinfemb.set_image(url=guild.banner_url)
 
 	return await ctx.send(embed=sinfemb)
 class ServerInfo(commands.Cog):
 	def __init__(self, bot):
 		self.bot: commands.Bot = bot
 
-	@cog_ext.cog_slash(name='serverinfo',description='Check the server\'s info!')
+	@cog_ext.cog_slash(name='serverinfo',description='Check the server\'s info!',guild_ids=[566694134212198481])
 	async def userinfo(self,ctx:SlashContext):
+		# await ctx.send("Bruh")
 		await ctx.defer()
 		guild = ctx.guild
 		await serverinfoemb(ctx, guild)

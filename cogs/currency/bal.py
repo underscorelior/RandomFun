@@ -11,7 +11,7 @@ async def balemb(ctx,user,bal):
 	balembed.set_author(name=user, icon_url=user.avatar_url)
 	balembed.timestamp = datetime.datetime.utcnow()
 	return await ctx.send(embed=balembed)
-class RoleInfo(commands.Cog):
+class Bal(commands.Cog):
 	def __init__(self, bot):
 		self.bot: commands.Bot = bot
 		
@@ -25,4 +25,4 @@ class RoleInfo(commands.Cog):
 
 def setup(bot: commands.Bot):
 	cmdlogger.info("Loading Bal")
-	bot.add_cog(RoleInfo(bot))
+	bot.add_cog(Bal(bot))

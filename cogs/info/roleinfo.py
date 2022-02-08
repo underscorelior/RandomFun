@@ -1,33 +1,32 @@
-import datetime
+from datetime import datetime
 import discord
 from discord.ext import commands
 from discord_slash import cog_ext, SlashContext
-from utils import permcheck
-from utils import cmdlogger
+from discord_slash.utils.manage_commands import create_option
+from utils import cmdlogger, permcheck
 
 async def roleinfoemb(ctx, role):
-	if str(role.color) == "#000000":
-		clr = 0x8F4088
-		rclr = "None"
-	else:
-		clr = int(hex(int((str(role.color)).replace("#", ""), 16)), 0)
-		rclr = role.color
-	rinfemb = discord.Embed(title=f"{role.name}", description=f"💳 ID: {role.id} \n<:MENTION:925680840602681344> Mention: {role.mention}", color=clr)
+	if str(role.color) == "#000000": clr = 0x8F4088; rclr = "None"
+	else: clr = int(hex(int((str(role.color)).replace("#", ""), 16)), 0); rclr = role.color
+
+	rinfemb = discord.Embed(title=f"{role.name}", description=f"💳 ID: {role.id} \n<:MENTION:925680840602681344> Mention: {role.mention}", color=clr).timestamp = datetime.utcnow()
+
 	rcrts = str((role.created_at).timestamp()).split('.')[0]
 	rmemm = ""
-	for member in role.members:
-		rmemm += f"{member.mention} "
+	for member in role.members: rmemm += f"{member.mention} "
+
 	rinfemb.add_field(name="Info",value=f"📅 Created At: {rcrts} \n🎨 Color: {rclr} \n🔧 Permissions: \n```{await permcheck(int(role.permissions.value))}``` \n👥 Members: {len(rmemm)}")
-	rinfemb.timestamp = datetime.datetime.utcnow()
+	
 	return await ctx.send(embed=rinfemb)
 class RoleInfo(commands.Cog):
 	def __init__(self, bot):
 		self.bot: commands.Bot = bot
 
-	@cog_ext.cog_slash(name='roleinfo',description='Check a role\'s info!')
-	async def roleinfo(self,ctx:SlashContext,role: discord.Role):
+	@cog_ext.cog_slash(name='roleinfo',description='Check a role\'s info!',options=[create_option(name="role",description="Mention the role you want the info for.",option_type=8,required=True)],guild_ids=[566694134212198481])
+	async def roleinfo(self,ctx:SlashContext,role):
 		await ctx.defer()
-		await roleinfoemb(ctx, role)	
+		await roleinfoemb(ctx, role)
+	
 	@commands.command(aliases=["ri"])
 	async def roleinfo(self,ctx, role: discord.Role):
 		await roleinfoemb(ctx, role)
