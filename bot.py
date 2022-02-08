@@ -34,8 +34,7 @@ for extfn in extfilenames:
 			try:
 				bot.load_extension(f"cogs.{extfn}.{filename[:-3]}")
 			except Exception as e:
-				logger.error(f'Failed to load extension {extfn}.{filename}.')
-				logger.error(e)
+				logger.error(f'Failed to load extension {extfn}.{filename}. \n{e}')
 
 load_dotenv()
 token = os.getenv("TOKEN")
