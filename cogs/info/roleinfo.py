@@ -22,7 +22,7 @@ class RoleInfo(commands.Cog):
 	def __init__(self, bot):
 		self.bot: commands.Bot = bot
 
-	@cog_ext.cog_slash(name='roleinfo',description='Check a role\'s info!',options=[create_option(name="role",description="Mention the role you want the info for.",option_type=8,required=True)],guild_ids=[566694134212198481])
+	@cog_ext.cog_slash(name='roleinfo',description='Check a role\'s info!',options=[create_option(name="role",description="Mention the role you want the info for.",option_type=8,required=True)])
 	async def roleinfo(self,ctx:SlashContext,role):
 		await ctx.defer()
 		await roleinfoemb(ctx, role)

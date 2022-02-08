@@ -24,7 +24,7 @@ class BotInfo(commands.Cog):
 		self.bot: commands.Bot = bot
 		self.start_time = datetime.now()
 
-	@cog_ext.cog_slash(name='botinfo',description='Check the bot\'s info!', guild_ids=[566694134212198481])
+	@cog_ext.cog_slash(name='botinfo',description='Check the bot\'s info!')
 	async def botinfo(self,ctx:SlashContext):
 		await ctx.defer()
 		await botinfemb(ctx,self.bot, self.start_time)	

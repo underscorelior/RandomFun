@@ -74,7 +74,7 @@ class ServerInfo(commands.Cog):
 	def __init__(self, bot):
 		self.bot: commands.Bot = bot
 
-	@cog_ext.cog_slash(name='serverinfo',description='Check the server\'s info!',guild_ids=[566694134212198481])
+	@cog_ext.cog_slash(name='serverinfo',description='Check the server\'s info!')
 	async def userinfo(self,ctx:SlashContext):
 		# await ctx.send("Bruh")
 		await ctx.defer()
