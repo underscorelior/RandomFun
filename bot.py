@@ -19,13 +19,13 @@ bot.load_extension("utils.errorhandling")
 bot.load_extension('jishaku')
 bot.load_extension("cog_reloader")
 extfilenames = (
-	'games',
+	# 'games',
 	'random',
-	'currency',
+	# 'currency',
 	'info',
 	# 'media',
 	# 'music',
-	'minecraft'
+	# 'minecraft'
 )
 
 for extfn in extfilenames:
