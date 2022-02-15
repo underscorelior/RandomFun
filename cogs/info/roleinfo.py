@@ -9,13 +9,13 @@ async def roleinfoemb(ctx, role):
 	if str(role.color) == "#000000": clr = 0x8F4088; rclr = "None"
 	else: clr = int(hex(int((str(role.color)).replace("#", ""), 16)), 0); rclr = role.color
 
-	rinfemb = discord.Embed(title=f"{role.name}", description=f"💳 ID: {role.id} \n<:MENTION:925680840602681344> Mention: {role.mention}", color=clr).timestamp = datetime.utcnow()
+	rinfemb = discord.Embed(title=f"{role.name}", description=f"💳 ID: {role.id} \n<:MENTION:925680840602681344> Mention: {role.mention}", color=clr, timestamp = datetime.utcnow())
 
 	rcrts = str((role.created_at).timestamp()).split('.')[0]
 	rmemm = ""
 	for member in role.members: rmemm += f"{member.mention} "
 
-	rinfemb.add_field(name="Info",value=f"📅 Created At: {rcrts} \n🎨 Color: {rclr} \n🔧 Permissions: \n```{await permcheck(int(role.permissions.value))}``` \n👥 Members: {len(rmemm)}")
+	rinfemb.add_field(name="Info",value=f"📅 Created At: <t:{rcrts}:F> \n🎨 Color: {rclr} \n🔧 Permissions: \n```{await permcheck(int(role.permissions.value))}``` \n👥 Members: {len(rmemm)}")
 	
 	return await ctx.send(embed=rinfemb)
 class RoleInfo(commands.Cog):
