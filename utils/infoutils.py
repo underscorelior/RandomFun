@@ -17,7 +17,7 @@ def format_seconds(time_seconds):
 			seconds -= 60
 			minutes += 1
 
-	return f"{days}d {hours}h {minutes}m {seconds}s"
+	return f"{days} days, {hours} hours, {minutes} minutes, {seconds} seconds"
 async def permcheck(perm):
 	prm = discord.Permissions(perm)
 	perms = ""
