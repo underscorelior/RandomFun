@@ -22,7 +22,7 @@ async def httpscat(ctx,err):
 
 async def timeup(ctx,stt):
 	upts = str((stt).timestamp()).split('.')[0]
-	embed = discord.Embed(title="Uptime", description=f"Current uptime: \n> {format_seconds(round((datetime.now() - stt).total_seconds()))}\n\nDiscord Timestamps; \n> <t:{upts}:F> (<t:{upts}:R>)",color=0x28acb8,timestamp = datetime.utcnow())
+	embed = discord.Embed(title="Uptime", description=f"Current uptime: \n> {format_seconds(round((datetime.now() - stt).total_seconds()))}\n\nDiscord Timestamps: \n> <t:{upts}:F> (<t:{upts}:R>)",color=0x28acb8,timestamp = datetime.utcnow())
 	await ctx.send(embed=embed)
 async def brr(ctx,eng):
 	await ctx.send(f'English: {eng} \nBraille: {(str(eng).lower()).replace("a", "⠁").replace("b", "⠃").replace("c", "⠉").replace("d", "⠙").replace("e", "⠑").replace("f", "⠋").replace("g", "⠛").replace("h", "⠓").replace("i", "⠊").replace("j", "⠚").replace("k", "⠅").replace("l", "⠅").replace("m", "⠍").replace("n", "⠝").replace("o", "⠕").replace("p", "⠏").replace("q", "⠟").replace("r", "⠗").replace("s", "⠎").replace("t", "⠞").replace("u", "⠥").replace("v", "⠧").replace("w", "⠺").replace("x", "⠭").replace("y", "⠽").replace("z", "⠵")}')
