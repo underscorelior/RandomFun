@@ -24,17 +24,14 @@ extfilenames = (
 	'currency',
 	'info',
 	'media',
-	'music',
+	# 'music',
 	'minecraft'
 )
-ll = 0
 for extfn in extfilenames:
 	for filename in os.listdir(f'./cogs/{extfn}'):
 		if filename.endswith('.py'):
-			# ll += len(open(f"cogs/{extfn}/{filename}", "r").read())
 			try: bot.load_extension(f"cogs.{extfn}.{filename[:-3]}")
 			except Exception as e: logger.error(f'Failed to load extension {extfn}.{filename}. \n{e}')
-print(ll)
 load_dotenv()
 token = os.getenv("TOKEN")
 bot.run(token)
