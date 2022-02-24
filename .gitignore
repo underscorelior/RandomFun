@@ -111,9 +111,7 @@ config.toml
 .vscode
 workspace.code-workspace
 
-# logs
-*.log
-
+#Tests
 *.exe
 test.py
 web_screenshot.png 

@@ -24,7 +24,11 @@ extfilenames = (
 	'currency',
 	'info',
 	'media',
+<<<<<<< HEAD
 	# 'music',
+=======
+	'music',
+>>>>>>> f9ad569920a34d735679899fdb6a4ca3ea1748a4
 	'minecraft'
 )
 
