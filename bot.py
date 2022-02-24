@@ -27,6 +27,7 @@ extfilenames = (
 	# 'music',
 	'minecraft'
 )
+
 for extfn in extfilenames:
 	for filename in os.listdir(f'./cogs/{extfn}'):
 		if filename.endswith('.py'):
