@@ -23,12 +23,12 @@ class Wordle(commands.Cog):
 			with open('data/wordlewords.txt', 'r') as f:
 				words = f.read()
 				if word.lower() in words:
-					await ctx.send("Valid")
-					for e in word.lower():
-						if e in wordlewords:
+					wordss = word.lower()
+					for e in range(len(word.lower())):
+						if wordss[e] in wordlewords:
 							if word[e] == wordlewords[e]:
 								wordeee += "🟩"
-							if e in wordlewords:
+							elif wordss[e] in wordlewords:
 								wordeee += "🟨"
 						else:
 							wordeee += "🟥"
