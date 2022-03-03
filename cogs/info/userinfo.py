@@ -10,7 +10,7 @@ async def userinfoemb(ctx,user):
 	if str(user.color) == "#000000": clr = 0x1AFFCF
 	else: clr = int(hex(int((str(user.color)).replace("#", ""), 16)), 0)
 
-	uinfemb = discord.Embed(title=f"{user.name}", description=f"💳 ID: {user.id}", color=clr, timestamp = datetime.utcnow()).set_thumbnail(url=user.avatar)
+	uinfemb = discord.Embed(title=f"{user.name}", description=f"💳 ID: {user.id}", color=clr, timestamp = datetime.utcnow()).set_thumbnail(url=user.avatar_url)
 
 	if not user.nick: unick = f"{user.name} (No nick set)"
 	if user.nick: unick = user.nick
@@ -93,8 +93,8 @@ class UserInfo(commands.Cog):
 	def __init__(self, bot):
 		self.bot: commands.Bot = bot
 
-	@cog_ext.cog_slash(name='userinfo',description='Check another users info!',options=[create_option(name="user",description="Mention the user you want the info for.",option_type=6,required=False)])
-	async def userinfo(self,ctx:SlashContext,user = None):
+	@cog_ext.cog_slash(name='userinfo',description='Check another users info!',guild_ids=[566694134212198481]) #,options=[create_option(name="user",description="Mention the user you want the info for.",option_type=6,required=False)]
+	async def userinfo(self,ctx:SlashContext,user: discord.Member = None):
 		await ctx.defer()
 		await userinfoemb(ctx,user)
 

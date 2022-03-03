@@ -23,7 +23,7 @@ async def stockcd(ctx, bot, stock):
 	finnhub_client = finnhub.Client(api_key="c7fs6daad3if3foe6ssg")
 	prof = finnhub_client.company_profile2(symbol=stock)
 	cost = finnhub_client.quote(symbol=stock)
-
+	await ctx.send(prof); await ctx.send(cost)
 	options = webdriver.ChromeOptions()
 	options.headless = True
 	driver = webdriver.Chrome(options=options)		
@@ -43,7 +43,10 @@ async def stockcd(ctx, bot, stock):
 			try:
 				driver.find_element_by_class_name("button-qM2OSl9-").click()
 			except NoSuchElementException or ElementNotInteractableException:
-				pass
+				try:
+					driver.find_element_by_class_name("button-xRobF0EE").click()
+				except NoSuchElementException or ElementNotInteractableException:
+					pass
 			driver.set_window_size(1280,720)                                                                                                             
 			driver.find_element_by_class_name('chart-markup-table').screenshot('web_screenshot.png')
 
