@@ -11,7 +11,6 @@ import platform
 def lines():
 	total = 0
 	file_amount = 0
-	character_count = 0
 	ENV = "env"
 	for path, _, files in os.walk("."):
 		for name in files:
@@ -23,8 +22,18 @@ def lines():
 				for line in file:
 					if not line.strip().startswith("#") or not line.strip():
 						total += 1
+	return total, file_amount
+def char():
+	character_count = 0
+	ENV = "env"
+	for path, _, files in os.walk("."):
+		for name in files:
+			file_dir = str(pathlib.PurePath(path, name))
+			if not name.endswith(".py") or ENV in file_dir:
+				continue
+			with open(file_dir, "r", encoding="utf-8") as file:
 				character_count += len(file.read())
-	return total, file_amount, character_count
+	return character_count
 def conv(t):
 	return str((t).timestamp()).split('.')[0]
 async def botinfemb(ctx,bot,start_time):
@@ -35,7 +44,7 @@ async def botinfemb(ctx,bot,start_time):
 			I have been online since <t:{conv(start_time)}:F> (<t:{conv(start_time)}:R>)\n I am in `{len(bot.guilds)}` Guilds and I can see `{len(bot.users)}` Users.\n I have `{len(bot.commands)}` commands.""",
 		color=0xbedefa)
 	binfemb.add_field(name="System Information",value=f"Operating System: `{platform.platform()}` \nCPU: `{round(psutil.cpu_percent(),1)}%` \nMemory: `{psutil.virtual_memory().percent}%` \nStorage: `{psutil.disk_usage('/').percent}%` \nPython Version: `{(sys.version).split(' ') [0]}`")
-	binfemb.add_field(name="Files",value=f"File Count: `{lines()[1]}` \nLine Count: `{lines()[0]}` \nCharacter Count: `{lines()[2]}`")
+	binfemb.add_field(name="Files",value=f"File Count: `{lines()[1]}` \nLine Count: `{lines()[0]}` \nCharacter Count: `{char()}`")
 	binfemb.set_footer(text=f"Latency: {round(bot.latency, 6)*1000}ms ‖ ID: {ctx.me.id}")
 	binfemb.timestamp = datetime.utcnow()
 	binfemb.set_thumbnail(url=ctx.me.avatar_url)
