@@ -23,7 +23,7 @@ async def stockcd(ctx, bot, stock):
 	finnhub_client = finnhub.Client(api_key="c7fs6daad3if3foe6ssg")
 	prof = finnhub_client.company_profile2(symbol=stock)
 	cost = finnhub_client.quote(symbol=stock)
-	await ctx.send(prof); await ctx.send(cost)
+	# await ctx.send(prof); await ctx.send(cost)
 	options = webdriver.ChromeOptions()
 	options.headless = True
 	driver = webdriver.Chrome(options=options)		

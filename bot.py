@@ -21,22 +21,18 @@ bot.load_extension("cog_reloader")
 extfilenames = (
 	'games',
 	'random',
-	'currency',
+	# 'currency',
 	'info',
-	'media',
-<<<<<<< HEAD
+	# 'media',
 	# 'music',
-=======
-	'music',
->>>>>>> f9ad569920a34d735679899fdb6a4ca3ea1748a4
 	'minecraft'
 )
-
 for extfn in extfilenames:
 	for filename in os.listdir(f'./cogs/{extfn}'):
 		if filename.endswith('.py'):
 			try: bot.load_extension(f"cogs.{extfn}.{filename[:-3]}")
 			except Exception as e: logger.error(f'Failed to load extension {extfn}.{filename}. \n{e}')
+
 load_dotenv()
 token = os.getenv("TOKEN")
 bot.run(token)
