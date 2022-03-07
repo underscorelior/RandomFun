@@ -1,8 +1,9 @@
 import datetime
+from utils import cmdlogger
+
 import discord
 from discord.ext import commands
 from discord_slash import cog_ext, SlashContext
-from utils import cmdlogger
 
 async def serverinfoemb(ctx, guild):
 	print("OK")

@@ -1,20 +1,23 @@
-import datetime
-import discord
-from discord.ext import commands
-from discord_slash import cog_ext, SlashContext
-from discord_slash.utils.manage_commands import create_option
-from utils import cmdlogger, erremb
+import os
 import json
 import random
 import finnhub
 import asyncio
+import datetime
 from dotenv import load_dotenv
-import os
+from utils import cmdlogger, erremb
 from selenium import webdriver
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException, ElementNotInteractableException
+
+import discord
+from discord.ext import commands
+from discord_slash import cog_ext, SlashContext
+from discord_slash.utils.manage_commands import create_option
+
 load_dotenv()
 api_key = os.getenv("STAPI")
+
 async def stockcd(ctx, bot, stock):
 	if stock == None:
 		with open('data/stocks.json') as fp:

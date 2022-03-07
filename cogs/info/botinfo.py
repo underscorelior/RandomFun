@@ -1,13 +1,15 @@
+import sys
+import psutil
+import pathlib
+import platform
+import os, os.path
+from utils import cmdlogger
 from datetime import datetime
+
 import discord
 from discord.ext import commands
 from discord_slash import cog_ext, SlashContext
-from utils import cmdlogger
-import pathlib
-import psutil
-import os, os.path
-import sys
-import platform
+
 def lines():
 	total = 0
 	file_amount = 0
