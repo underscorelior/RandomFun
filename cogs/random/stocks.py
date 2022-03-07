@@ -31,8 +31,7 @@ async def stockcd(ctx, bot, stock):
 	options.headless = True
 	driver = webdriver.Chrome(options=options)		
 	try :
-		emtitle = prof["name"]
-		embed=discord.Embed(title=emtitle, description=prof["ticker"], color=0x5f5cff)
+		embed=discord.Embed(title=prof["name"], description=prof["ticker"], color=0x5f5cff).set_thumbnail(url=f"https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/{prof['ticker']}.png")
 		embed.add_field(name="Close Price:", value=f"{'{:,}'.format(cost['c'])}")
 		embed.add_field(name="Open Price:", value=f"{'{:,}'.format(cost['o'])}")
 		embed.add_field(name="Highest Price in Previous Close:", value=f"{'{:,}'.format(cost['h'])}",inline=False)
@@ -73,7 +72,7 @@ class Stocks(commands.Cog):
 		await ctx.defer()
 		await stockcd(ctx, self.bot, stock)
 	
-	@commands.cooldown(1,3,BucketType) 
+	@commands.cooldown(1,5,BucketType.member) 
 	@commands.command(aliases=['stocks'])
 	async def stock(self,ctx, stock = None):
 		async with ctx.channel.typing():
