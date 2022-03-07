@@ -40,7 +40,7 @@ async def botinfemb(ctx,bot,start_time):
 	binfemb = discord.Embed(
 		title="Bot Info", 
 		description=f"""[Invite Bot](https://discord.com/oauth2/authorize?client_id=708083169831682110&permissions=1551232064&scope=bot%20applications.commands \"Invite Link\") ‖ [Server](https://discord.gg/UyXARxeSBZ \"Server\") ‖ [Website](https://rf.underscore.wtf/ \"Website\")\n
-			Discord bot made by {bot.get_user(454356237614841870)}.\n I was created at <t:{conv(ctx.me.created_at)}:F>
+			Discord bot made by {bot.get_user(454356237614841870)}.\n I was created on <t:{conv(ctx.me.created_at)}:F>
 			I have been online since <t:{conv(start_time)}:F> (<t:{conv(start_time)}:R>)\n I am in `{len(bot.guilds)}` Guilds and I can see `{len(bot.users)}` Users.\n I have `{len(bot.commands)}` commands.""",
 		color=0xbedefa)
 	binfemb.add_field(name="System Information",value=f"Operating System: `{platform.platform()}` \nCPU: `{round(psutil.cpu_percent(),1)}%` \nMemory: `{psutil.virtual_memory().percent}%` \nStorage: `{psutil.disk_usage('/').percent}%` \nPython Version: `{(sys.version).split(' ') [0]}`")
