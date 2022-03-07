@@ -13,6 +13,7 @@ from selenium.common.exceptions import NoSuchElementException, ElementNotInterac
 import discord
 from discord.ext import commands
 from discord_slash import cog_ext, SlashContext
+from discord.ext.commands.cooldowns import BucketType
 from discord_slash.utils.manage_commands import create_option
 
 load_dotenv()
@@ -72,6 +73,7 @@ class Stocks(commands.Cog):
 		await ctx.defer()
 		await stockcd(ctx, self.bot, stock)
 	
+	@commands.cooldown(1,3,BucketType) 
 	@commands.command(aliases=['stocks'])
 	async def stock(self,ctx, stock = None):
 		async with ctx.channel.typing():
