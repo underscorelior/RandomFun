@@ -47,7 +47,7 @@ async def botinfemb(ctx,bot,start_time):
 		color=0xbedefa)
 	binfemb.add_field(name="System Information",value=f"Operating System: `{platform.platform()}` \nCPU: `{round(psutil.cpu_percent(),1)}%` \nMemory: `{psutil.virtual_memory().percent}%` \nStorage: `{psutil.disk_usage('/').percent}%` \nPython Version: `{(sys.version).split(' ') [0]}`")
 	binfemb.add_field(name="Files",value=f"File Count: `{lines()[1]}` \nLine Count: `{lines()[0]}` \nCharacter Count: `{char()}`")
-	binfemb.set_footer(text=f"Latency: {round(bot.latency, 6)*1000}ms ‖ ID: {ctx.me.id}")
+	binfemb.set_footer(text=f"Latency: {round(bot.latency*1000, 2)}ms ‖ ID: {ctx.me.id}")
 	binfemb.timestamp = datetime.utcnow()
 	binfemb.set_thumbnail(url=ctx.me.avatar_url)
 	return await ctx.send(embed=binfemb)
