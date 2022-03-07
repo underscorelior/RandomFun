@@ -27,7 +27,7 @@ async def serverinfoemb(ctx, guild):
 	
 	smemb = 0
 	smemu = 0
-	for member in ctx.guild.members:
+	for member in guild.members:
 		if member.bot:
 			smemb += 1
 		else:
@@ -51,11 +51,11 @@ async def serverinfoemb(ctx, guild):
 	sinfemb.add_field(name="Member Statuses",value=f"<:ONLINE:920502834695389214> Online: {smemon} \n<:IDLE:920502844099018813> Idle: {smemid} \n<:DND:920502802680274945> Dnd: {smemdn} \n<:OFF:920502852315664405> Offline: {smemof}")
 
 	scrts = str((guild.created_at).timestamp()).split('.')[0]
-	if ctx.guild.premium_tier == 1:
+	if guild.premium_tier == 1:
 		gbtr = "Boost Tier 1"
-	if ctx.guild.premium_tier == 2:
+	if guild.premium_tier == 2:
 		gbtr = "Boost Tier 2"
-	if ctx.guild.premium_tier == 3:
+	if guild.premium_tier == 3:
 		gbtr = "Boost Tier 3"
 	else:
 		gbtr = "No Boosts"
