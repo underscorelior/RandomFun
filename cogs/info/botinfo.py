@@ -1,7 +1,7 @@
 import sys
+import math
 import psutil
 import pathlib
-import platform
 import os, os.path
 from utils import cmdlogger
 from datetime import datetime
@@ -10,6 +10,15 @@ import discord
 from discord.ext import commands
 from discord_slash import cog_ext, SlashContext
 
+proc = psutil.Process()
+
+def natural_size(size_in_bytes: int):
+    units = ('B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB')
+
+    power = int(math.log(size_in_bytes, 1024))
+
+    return f"{size_in_bytes / (1024 ** power):.2f} {units[power]}"
+mem = proc.memory_full_info()
 def lines():
 	total = 0
 	file_amount = 0
@@ -41,11 +50,11 @@ def conv(t):
 async def botinfemb(ctx,bot,start_time):
 	binfemb = discord.Embed(
 		title="Bot Info", 
-		description=f"""[Invite Bot](https://discord.com/oauth2/authorize?client_id=708083169831682110&permissions=1551232064&scope=bot%20applications.commands \"Invite Link\") ‖ [Server](https://discord.gg/UyXARxeSBZ \"Server\") ‖ [Website](https://rf.underscore.wtf/ \"Website\")\n
+		description=f"""[Invite Bot](https://discord.com/oauth2/authorize?client_id=708083169831682110&permissions=1551232064&scope=bot%20applications.commands \"Invite Link\") **‖** [Server](https://discord.gg/UyXARxeSBZ \"Server\") **‖** [Website](https://rf.underscore.wtf/ \"Website\")\n
 			Discord bot made by {bot.get_user(454356237614841870)}.\n I was created on <t:{conv(ctx.me.created_at)}:F>
 			I have been online since <t:{conv(start_time)}:F> (<t:{conv(start_time)}:R>)\n I am in `{len(bot.guilds)}` Guilds and I can see `{len(bot.users)}` Users.\n I have `{len(bot.commands)}` commands.""",
 		color=0xbedefa)
-	binfemb.add_field(name="System Information",value=f"Operating System: `{platform.platform()}` \nCPU: `{round(psutil.cpu_percent(),1)}%` \nMemory: `{psutil.virtual_memory().percent}%` \nStorage: `{psutil.disk_usage('/').percent}%` \nPython Version: `{(sys.version).split(' ') [0]}`")
+	binfemb.add_field(name="System Information",value=f"Operating System: `{sys.platform}` \nCPU: `{round(psutil.cpu_percent(),1)}%` \nMemory: `{psutil.virtual_memory().percent}%` (`{natural_size(mem.rss)}`) \nStorage: `{psutil.disk_usage('/').percent}%` \nPython Version: `{(sys.version).split(' ') [0]}`")
 	binfemb.add_field(name="Files",value=f"File Count: `{lines()[1]}` \nLine Count: `{lines()[0]}` \nCharacter Count: `{char()}`")
 	binfemb.set_footer(text=f"Latency: {round(bot.latency*1000, 2)}ms ‖ ID: {ctx.me.id}")
 	binfemb.timestamp = datetime.utcnow()
