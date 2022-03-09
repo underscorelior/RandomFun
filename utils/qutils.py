@@ -82,6 +82,7 @@ async def checkansc(data, ansloc,quizans):
 				qb = data[random.randint(0,len(data))]["capital"][0]
 				qc = data[random.randint(0,len(data))]["capital"][0]
 				qd = quizans["capital"][0]
+			break
 		except IndexError:
 			pass
 	return qa,qb,qc,qd
@@ -109,6 +110,7 @@ async def checkansf(data, ansloc,quizans):
 				qb = data[random.randint(0,len(data))]["name"]["common"]
 				qc = data[random.randint(0,len(data))]["name"]["common"]
 				qd = quizans["name"]["common"]
+			break
 		except IndexError:
 			pass
 	return qa,qb,qc,qd
