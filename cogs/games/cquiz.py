@@ -8,8 +8,8 @@ from discord.ext import commands
 from discord_slash import cog_ext, SlashContext
 from discord_slash.utils.manage_commands import create_option
 from discord_components import Button, ButtonStyle
-# EMBEDS
-#add LB
+# flags
+# add LB
 
 class CountryQuiz(commands.Cog):
 	def __init__(self, bot):
@@ -28,10 +28,10 @@ class CountryQuiz(commands.Cog):
 		try: 
 			ansch = await self.bot.wait_for('button_click',check=lambda inter: inter.message.id == message.id and inter.user.id == ctx.author.id,timeout=15)
 		except asyncio.TimeoutError: 
-			return await message.edit(embed=await toembed(f'**`Timed out!`** \n\nWhat is the capital of `{quizans["name"]["common"]}`: \nAnswer: `{quizans["capital"][0]}`'),components=tobtn())
+			return await message.edit(embed=await toembed(f'What is the capital of `{quizans["name"]["common"]}`: \nAnswer: `{quizans["capital"][0]}`'),components=tobtn())
 		
 		if int(ansch.custom_id) == ansloc:
-			await message.edit(embed=discord.Embed(title='**`Win!`**',description=f'What is the capital of `{quizans["name"]["common"]}`: \nAnswer: `{quizans["capital"][0]}`', color=0x3cb556, timestamp = datetime.utcnow()),components=await winbtn(ansloc))
+			await message.edit(embed=discord.Embed(title='Win',description=f'What is the capital of `{quizans["name"]["common"]}`: \nAnswer: `{quizans["capital"][0]}`', color=0x3cb556, timestamp = datetime.utcnow()),components=await winbtn(ansloc))
 		else:
 			qta = await losebtn(ctx,int(ansch.custom_id),ansloc)
 			await message.edit(embed=discord.Embed(title='Lose',description=f'What is the capital of `{quizans["name"]["common"]}`: \nSelected Answer: `{btnans[0][qta[1]-1].label}` \nReal Answer: `{quizans["capital"][0]}`',color=0xfa8e23, timestamp = datetime.utcnow()),components=qta[0])
