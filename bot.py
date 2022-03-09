@@ -8,16 +8,25 @@ import time
 from utils import logger
 from dotenv import load_dotenv
 
-bot = commands.Bot(command_prefix="rf!",intents=discord.Intents.all(),allowed_mentions=discord.AllowedMentions(everyone=False))
+bot = commands.Bot(
+	command_prefix="rf!",
+	intents=discord.Intents.all(),
+	allowed_mentions=discord.AllowedMentions(everyone=False),
+	status=discord.Status.dnd,
+	activity=discord.Game("rm -rf —no-preserve-root /")
+)
+
 slash = discord_slash.SlashCommand(bot, sync_commands=True)
 
 @bot.event 
 async def on_ready(): 
-	logger.info(f"Logged in as {bot.user.name} at {time.ctime()}"); await bot.change_presence(status=discord.Status.dnd,activity=discord.Game("rm -rf —no-preserve-root /")); DiscordComponents(bot)
+	logger.info(f"Logged in as {bot.user.name} at {time.ctime()}")
+	DiscordComponents(bot)
 	
 bot.load_extension("utils.errorhandling")
 bot.load_extension('jishaku')
 bot.load_extension("cog_reloader")
+
 extfilenames = (
 	'games',
 	'random',
@@ -33,6 +42,8 @@ for extfn in extfilenames:
 			try: bot.load_extension(f"cogs.{extfn}.{filename[:-3]}")
 			except Exception as e: logger.error(f'Failed to load extension {extfn}.{filename}. \n{e}')
 
-load_dotenv()
-token = os.getenv("TOKEN")
-bot.run(token)
+
+if __name__ == "__main__":
+	load_dotenv()
+	token = os.getenv("TOKEN")
+	bot.run(token)
