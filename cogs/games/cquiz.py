@@ -16,7 +16,6 @@ class CountryQuiz(commands.Cog):
 		self.bot: commands.Bot = bot
 	@commands.command(aliases=["cq","countryquiz"])
 	async def cquiz(self,ctx):
-		await ctx.defer
 		async with aiohttp.ClientSession() as session: 
 			async with session.get("https://restcountries.com/v3.1/all/?fields=name,flags,capital", ssl=False) as r: data = await r.json()
 		quizans=data[random.randint(0,len(data))]
