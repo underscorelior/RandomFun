@@ -11,3 +11,7 @@ async def toembed(timeout):
 	toembed = discord.Embed(title="Timed Out:" ,description=timeout ,color=0xd62d2d)
 	toembed.timestamp = datetime.utcnow()
 	return toembed
+async def toembedt(timeout,thmb):
+	toembed = discord.Embed(title="Timed Out:" ,description=timeout ,color=0xd62d2d).set_thumbnail(url=thmb)
+	toembed.timestamp = datetime.utcnow()
+	return toembed
