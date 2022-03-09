@@ -1,4 +1,4 @@
-from utils import cmdlogger, winbtn, losebtn, tobtn, checkansc, toembed
+from utils import cmdlogger, winbtn, losebtn, checkansc, toembed
 import discord
 import random
 import aiohttp
@@ -21,14 +21,14 @@ class CountryQuiz(commands.Cog):
 		quizans=data[random.randint(0,len(data))]
 		if not quizans: quizans=data[random.randint(0,len(data))]
 		ansloc = random.randint(1,4) 
-		ca=await checkansc(ctx,data, ansloc,quizans)
+		ca=await checkansc(data, ansloc, quizans)
 		btnans=[[Button(label=ca[0], emoji="🇦", style=ButtonStyle.blue, custom_id=1),Button(label=ca[1],emoji='🇧', style=ButtonStyle.blue, custom_id=2),Button(label=ca[2], emoji="🇨", style=ButtonStyle.blue, custom_id=3),Button(label=ca[3], emoji='🇩', style=ButtonStyle.blue, custom_id=4)]]
 		msem = discord.Embed(title=f'What is the capital of `{quizans["name"]["common"]}`:',color=0x1860cc, timestamp = datetime.utcnow())
-		message = await ctx.send(embed=msem,components=btnans)
+		message = await ctx.send(content="1",embed=msem,components=btnans)
 		try: 
 			ansch = await self.bot.wait_for('button_click',check=lambda inter: inter.message.id == message.id and inter.user.id == ctx.author.id,timeout=15)
 		except asyncio.TimeoutError: 
-			return await message.edit(embed=await toembed(f'What is the capital of `{quizans["name"]["common"]}`: \nAnswer: `{quizans["capital"][0]}`'),components=tobtn())
+			return await message.edit(embed=await toembed(f'What is the capital of `{quizans["name"]["common"]}`: \nAnswer: `{quizans["capital"][0]}`'),components=[[Button(emoji="🇦",style=ButtonStyle.grey,disabled=True),Button(emoji='🇧',style=ButtonStyle.grey,disabled=True),Button(emoji="🇨",style=ButtonStyle.grey,disabled=True),Button(emoji='🇩',style=ButtonStyle.grey,disabled=True)]])
 		
 		if int(ansch.custom_id) == ansloc:
 			await message.edit(embed=discord.Embed(title='Win',description=f'What is the capital of `{quizans["name"]["common"]}`: \nAnswer: `{quizans["capital"][0]}`', color=0x3cb556, timestamp = datetime.utcnow()),components=await winbtn(ansloc))

@@ -37,61 +37,58 @@ async def losebtn(ctx, chans, rans):
 
 	return btnls,chans,rans
 
-def tobtn():
-	btnto=[[Button(emoji="🇦",style=ButtonStyle.grey,disabled=True),Button(emoji='🇧',style=ButtonStyle.grey,disabled=True),Button(emoji="🇨",style=ButtonStyle.grey,disabled=True),Button(emoji='🇩',style=ButtonStyle.grey,disabled=True)]]
-	return btnto
 
-async def checkansc(ctx,data, ansloc,quizans):
-	try:
-		if ansloc == 1: qa = quizans["name"]["common"]; qb = data[random.randint(0,len(data))]["name"]["common"]; qc = data[random.randint(0,len(data))]["name"]["common"]; qd = data[random.randint(0,len(data))]["name"]["common"]
-		if ansloc == 2: qa = data[random.randint(0,len(data))]["name"]["common"]; qb = quizans["name"]["common"]; qc = data[random.randint(0,len(data))]["name"]["common"]; qd = data[random.randint(0,len(data))]["name"]["common"]
-		if ansloc == 3: qa = data[random.randint(0,len(data))]["name"]["common"]; qb = data[random.randint(0,len(data))]["name"]["common"]; qc = quizans["name"]["common"]; qd = data[random.randint(0,len(data))]["name"]["common"]
-		if ansloc == 4: qa = data[random.randint(0,len(data))]["name"]["common"]; qb = data[random.randint(0,len(data))]["name"]["common"]; qc = data[random.randint(0,len(data))]["name"]["common"]; qd = quizans["name"]["common"]
-	except IndexError:
+async def checkansc(data, ansloc,quizans):
+	x=False
+	while x != True:
 		try:
-			if ansloc == 1: qa = quizans["name"]["common"]; qb = data[random.randint(0,len(data))]["name"]["common"]; qc = data[random.randint(0,len(data))]["name"]["common"]; qd = data[random.randint(0,len(data))]["name"]["common"]
-			if ansloc == 2: qa = data[random.randint(0,len(data))]["name"]["common"]; qb = quizans["name"]["common"]; qc = data[random.randint(0,len(data))]["name"]["common"]; qd = data[random.randint(0,len(data))]["name"]["common"]
-			if ansloc == 3: qa = data[random.randint(0,len(data))]["name"]["common"]; qb = data[random.randint(0,len(data))]["name"]["common"]; qc = quizans["name"]["common"]; qd = data[random.randint(0,len(data))]["name"]["common"]
-			if ansloc == 4: qa = data[random.randint(0,len(data))]["name"]["common"]; qb = data[random.randint(0,len(data))]["name"]["common"]; qc = data[random.randint(0,len(data))]["name"]["common"]; qd = quizans["name"]["common"]
+			if ansloc == 1:
+				qa = quizans["capital"][0]
+				qb = data[random.randint(0,len(data))]["capital"][0]
+				qc = data[random.randint(0,len(data))]["capital"][0]
+				qd = data[random.randint(0,len(data))]["capital"][0]
+			if ansloc == 2:
+				qa = data[random.randint(0,len(data))]["capital"][0]
+				qb = quizans["capital"][0]
+				qc = data[random.randint(0,len(data))]["capital"][0]
+				qd = data[random.randint(0,len(data))]["capital"][0]
+			if ansloc == 3: 
+				qa = data[random.randint(0,len(data))]["capital"][0]
+				qb = data[random.randint(0,len(data))]["capital"][0]
+				qc = quizans["capital"][0]
+				qd = data[random.randint(0,len(data))]["capital"][0]
+			if ansloc == 4: 
+				qa = data[random.randint(0,len(data))]["capital"][0]
+				qb = data[random.randint(0,len(data))]["capital"][0]
+				qc = data[random.randint(0,len(data))]["capital"][0]
+				qd = quizans["capital"][0]
 		except IndexError:
-			try:
-				if ansloc == 1: qa = quizans["name"]["common"]; qb = data[random.randint(0,len(data))]["name"]["common"]; qc = data[random.randint(0,len(data))]["name"]["common"]; qd = data[random.randint(0,len(data))]["name"]["common"]
-				if ansloc == 2: qa = data[random.randint(0,len(data))]["name"]["common"]; qb = quizans["name"]["common"]; qc = data[random.randint(0,len(data))]["name"]["common"]; qd = data[random.randint(0,len(data))]["name"]["common"]
-				if ansloc == 3: qa = data[random.randint(0,len(data))]["name"]["common"]; qb = data[random.randint(0,len(data))]["name"]["common"]; qc = quizans["name"]["common"]; qd = data[random.randint(0,len(data))]["name"]["common"]
-				if ansloc == 4: qa = data[random.randint(0,len(data))]["name"]["common"]; qb = data[random.randint(0,len(data))]["name"]["common"]; qc = data[random.randint(0,len(data))]["name"]["common"]; qd = quizans["name"]["common"]
-			except IndexError:
-				try:
-					if ansloc == 1: qa = quizans["name"]["common"]; qb = data[random.randint(0,len(data))]["name"]["common"]; qc = data[random.randint(0,len(data))]["name"]["common"]; qd = data[random.randint(0,len(data))]["name"]["common"]
-					if ansloc == 2: qa = data[random.randint(0,len(data))]["name"]["common"]; qb = quizans["name"]["common"]; qc = data[random.randint(0,len(data))]["name"]["common"]; qd = data[random.randint(0,len(data))]["name"]["common"]
-					if ansloc == 3: qa = data[random.randint(0,len(data))]["name"]["common"]; qb = data[random.randint(0,len(data))]["name"]["common"]; qc = quizans["name"]["common"]; qd = data[random.randint(0,len(data))]["name"]["common"]
-					if ansloc == 4: qa = data[random.randint(0,len(data))]["name"]["common"]; qb = data[random.randint(0,len(data))]["name"]["common"]; qc = data[random.randint(0,len(data))]["name"]["common"]; qd = quizans["name"]["common"]
-				except IndexError:
-					return await ctx.send("An error has occurred! Please execute this command again.")
+			pass
 	return qa,qb,qc,qd
-async def checkansf(ctx,data, ansloc,quizans):
-	try:
-		if ansloc == 1: qa = quizans["name"]["common"]; qb = data[random.randint(0,len(data))]["name"]["common"]; qc = data[random.randint(0,len(data))]["name"]["common"]; qd = data[random.randint(0,len(data))]["name"]["common"]
-		if ansloc == 2: qa = data[random.randint(0,len(data))]["name"]["common"]; qb = quizans["name"]["common"]; qc = data[random.randint(0,len(data))]["name"]["common"]; qd = data[random.randint(0,len(data))]["name"]["common"]
-		if ansloc == 3: qa = data[random.randint(0,len(data))]["name"]["common"]; qb = data[random.randint(0,len(data))]["name"]["common"]; qc = quizans["name"]["common"]; qd = data[random.randint(0,len(data))]["name"]["common"]
-		if ansloc == 4: qa = data[random.randint(0,len(data))]["name"]["common"]; qb = data[random.randint(0,len(data))]["name"]["common"]; qc = data[random.randint(0,len(data))]["name"]["common"]; qd = quizans["name"]["common"]
-	except IndexError:
+async def checkansf(data, ansloc,quizans):
+	x=False
+	while x != True:
 		try:
-			if ansloc == 1: qa = quizans["name"]["common"]; qb = data[random.randint(0,len(data))]["name"]["common"]; qc = data[random.randint(0,len(data))]["name"]["common"]; qd = data[random.randint(0,len(data))]["name"]["common"]
-			if ansloc == 2: qa = data[random.randint(0,len(data))]["name"]["common"]; qb = quizans["name"]["common"]; qc = data[random.randint(0,len(data))]["name"]["common"]; qd = data[random.randint(0,len(data))]["name"]["common"]
-			if ansloc == 3: qa = data[random.randint(0,len(data))]["name"]["common"]; qb = data[random.randint(0,len(data))]["name"]["common"]; qc = quizans["name"]["common"]; qd = data[random.randint(0,len(data))]["name"]["common"]
-			if ansloc == 4: qa = data[random.randint(0,len(data))]["name"]["common"]; qb = data[random.randint(0,len(data))]["name"]["common"]; qc = data[random.randint(0,len(data))]["name"]["common"]; qd = quizans["name"]["common"]
+			if ansloc == 1: 
+				qa = quizans["name"]["common"]
+				qb = data[random.randint(0,len(data))]["name"]["common"]
+				qc = data[random.randint(0,len(data))]["name"]["common"]
+				qd = data[random.randint(0,len(data))]["name"]["common"]
+			if ansloc == 2:
+				qa = data[random.randint(0,len(data))]["name"]["common"]
+				qb = quizans["name"]["common"]
+				qc = data[random.randint(0,len(data))]["name"]["common"]
+				qd = data[random.randint(0,len(data))]["name"]["common"]
+			if ansloc == 3: 
+				qa = data[random.randint(0,len(data))]["name"]["common"]
+				qb = data[random.randint(0,len(data))]["name"]["common"]
+				qc = quizans["name"]["common"]
+				qd = data[random.randint(0,len(data))]["name"]["common"]
+			if ansloc == 4: 
+				qa = data[random.randint(0,len(data))]["name"]["common"]
+				qb = data[random.randint(0,len(data))]["name"]["common"]
+				qc = data[random.randint(0,len(data))]["name"]["common"]
+				qd = quizans["name"]["common"]
 		except IndexError:
-			try:
-				if ansloc == 1: qa = quizans["name"]["common"]; qb = data[random.randint(0,len(data))]["name"]["common"]; qc = data[random.randint(0,len(data))]["name"]["common"]; qd = data[random.randint(0,len(data))]["name"]["common"]
-				if ansloc == 2: qa = data[random.randint(0,len(data))]["name"]["common"]; qb = quizans["name"]["common"]; qc = data[random.randint(0,len(data))]["name"]["common"]; qd = data[random.randint(0,len(data))]["name"]["common"]
-				if ansloc == 3: qa = data[random.randint(0,len(data))]["name"]["common"]; qb = data[random.randint(0,len(data))]["name"]["common"]; qc = quizans["name"]["common"]; qd = data[random.randint(0,len(data))]["name"]["common"]
-				if ansloc == 4: qa = data[random.randint(0,len(data))]["name"]["common"]; qb = data[random.randint(0,len(data))]["name"]["common"]; qc = data[random.randint(0,len(data))]["name"]["common"]; qd = quizans["name"]["common"]
-			except IndexError:
-				try:
-					if ansloc == 1: qa = quizans["name"]["common"]; qb = data[random.randint(0,len(data))]["name"]["common"]; qc = data[random.randint(0,len(data))]["name"]["common"]; qd = data[random.randint(0,len(data))]["name"]["common"]
-					if ansloc == 2: qa = data[random.randint(0,len(data))]["name"]["common"]; qb = quizans["name"]["common"]; qc = data[random.randint(0,len(data))]["name"]["common"]; qd = data[random.randint(0,len(data))]["name"]["common"]
-					if ansloc == 3: qa = data[random.randint(0,len(data))]["name"]["common"]; qb = data[random.randint(0,len(data))]["name"]["common"]; qc = quizans["name"]["common"]; qd = data[random.randint(0,len(data))]["name"]["common"]
-					if ansloc == 4: qa = data[random.randint(0,len(data))]["name"]["common"]; qb = data[random.randint(0,len(data))]["name"]["common"]; qc = data[random.randint(0,len(data))]["name"]["common"]; qd = quizans["name"]["common"]
-				except IndexError:
-					return await ctx.send("An error has occurred! Please execute this command again.")
+			pass
 	return qa,qb,qc,qd
