@@ -17,7 +17,7 @@ class CountryQuiz(commands.Cog):
 	@commands.command(aliases=["cq","countryquiz"])
 	async def cquiz(self,ctx):
 		async with aiohttp.ClientSession() as session: 
-			async with session.get("https://restcountries.com/v3.1/all/?fields=name,capital", ssl=False) as r: data = await r.json()
+			async with session.get("https://underscore.wtf/countries/countries.json", ssl=False) as r: data = await r.json()
 		quizans=data[random.randint(0,len(data))]
 		if not quizans: quizans=data[random.randint(0,len(data))]
 		ansloc = random.randint(1,4) 
