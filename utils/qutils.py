@@ -13,7 +13,7 @@ async def winbtn(wch):
         btnwn=[[Button(emoji="🇦",style=ButtonStyle.grey,disabled=True),Button(emoji='🇧',style=ButtonStyle.grey,disabled=True),Button(emoji="🇨",style=ButtonStyle.grey,disabled=True),Button(emoji='🇩',style=ButtonStyle.green,disabled=True)]]
     return btnwn
 
-async def losebtn(ctx, chans, rans):
+async def losebtn(chans, rans):
     if chans == 1:
         chbtn = Button(emoji="🇦",style=ButtonStyle.red,disabled=True)
     if chans == 2:
@@ -57,60 +57,29 @@ async def losebtn(ctx, chans, rans):
 
     return btnls,chans,rans
 
-
-async def checkansc(data, ansloc,quizans):
-	x=False
-	while x != True:
-		try:
-			if ansloc == 1:
-				qa = quizans["capital"][0]
-				qb = data[random.randint(0,len(data))]["capital"][0]
-				qc = data[random.randint(0,len(data))]["capital"][0]
-				qd = data[random.randint(0,len(data))]["capital"][0]
-			if ansloc == 2:
-				qa = data[random.randint(0,len(data))]["capital"][0]
-				qb = quizans["capital"][0]
-				qc = data[random.randint(0,len(data))]["capital"][0]
-				qd = data[random.randint(0,len(data))]["capital"][0]
-			if ansloc == 3: 
-				qa = data[random.randint(0,len(data))]["capital"][0]
-				qb = data[random.randint(0,len(data))]["capital"][0]
-				qc = quizans["capital"][0]
-				qd = data[random.randint(0,len(data))]["capital"][0]
-			if ansloc == 4: 
-				qa = data[random.randint(0,len(data))]["capital"][0]
-				qb = data[random.randint(0,len(data))]["capital"][0]
-				qc = data[random.randint(0,len(data))]["capital"][0]
-				qd = quizans["capital"][0]
-			break
-		except IndexError:
-			pass
-	return qa,qb,qc,qd
-async def checkansf(data, ansloc,quizans):
-	x=False
-	while x != True:
-		try:
-			if ansloc == 1: 
-				qa = quizans["name"]["common"]
-				qb = data[random.randint(0,len(data))]["name"]["common"]
-				qc = data[random.randint(0,len(data))]["name"]["common"]
-				qd = data[random.randint(0,len(data))]["name"]["common"]
-			if ansloc == 2:
-				qa = data[random.randint(0,len(data))]["name"]["common"]
-				qb = quizans["name"]["common"]
-				qc = data[random.randint(0,len(data))]["name"]["common"]
-				qd = data[random.randint(0,len(data))]["name"]["common"]
-			if ansloc == 3: 
-				qa = data[random.randint(0,len(data))]["name"]["common"]
-				qb = data[random.randint(0,len(data))]["name"]["common"]
-				qc = quizans["name"]["common"]
-				qd = data[random.randint(0,len(data))]["name"]["common"]
-			if ansloc == 4: 
-				qa = data[random.randint(0,len(data))]["name"]["common"]
-				qb = data[random.randint(0,len(data))]["name"]["common"]
-				qc = data[random.randint(0,len(data))]["name"]["common"]
-				qd = quizans["name"]["common"]
-			break
-		except IndexError:
-			pass
+async def checkans(data, ansloc, quizans, type):
+	x=True
+	while x is True:
+		if ansloc == 1:
+			qa = quizans[type]
+			qb = data[random.randint(0,len(data))][type]
+			qc = data[random.randint(0,len(data))][type]
+			qd = data[random.randint(0,len(data))][type]
+		if ansloc == 2:
+			qa = data[random.randint(0,len(data))][type]
+			qb = quizans[type]
+			qc = data[random.randint(0,len(data))][type]
+			qd = data[random.randint(0,len(data))][type]
+		if ansloc == 3: 
+			qa = data[random.randint(0,len(data))][type]
+			qb = data[random.randint(0,len(data))][type]
+			qc = quizans[type]
+			qd = data[random.randint(0,len(data))][type]
+		if ansloc == 4: 
+			qa = data[random.randint(0,len(data))][type]
+			qb = data[random.randint(0,len(data))][type]
+			qc = data[random.randint(0,len(data))][type]
+			qd = quizans[type]
+		if qa == qb or qa == qc or qa== qb: x=True
+		else: x=False
 	return qa,qb,qc,qd
