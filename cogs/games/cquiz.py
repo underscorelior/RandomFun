@@ -24,17 +24,17 @@ class CountryQuiz(commands.Cog):
 		ca=await checkansc(data, ansloc, quizans)
 		btnans=[[Button(label=ca[0], emoji="🇦", style=ButtonStyle.blue, custom_id=1),Button(label=ca[1],emoji='🇧', style=ButtonStyle.blue, custom_id=2),Button(label=ca[2], emoji="🇨", style=ButtonStyle.blue, custom_id=3),Button(label=ca[3], emoji='🇩', style=ButtonStyle.blue, custom_id=4)]]
 		msem = discord.Embed(title=f'What is the capital of `{quizans["name"]["common"]}`:',color=0x1860cc, timestamp = datetime.utcnow())
-		message = await ctx.send(embed=msem,components=btnans)
+		message = await ctx.reply(embed=msem,components=btnans).set_footer(text=ctx.author,icon_url=ctx.author)
 		try: 
 			ansch = await self.bot.wait_for('button_click',check=lambda inter: inter.message.id == message.id and inter.user.id == ctx.author.id,timeout=15)
 		except asyncio.TimeoutError: 
 			return await message.edit(embed=await toembed(f'What is the capital of `{quizans["name"]["common"]}`: \nAnswer: `{quizans["capital"][0]}`'),components=[[Button(emoji="🇦",style=ButtonStyle.grey,disabled=True),Button(emoji='🇧',style=ButtonStyle.grey,disabled=True),Button(emoji="🇨",style=ButtonStyle.grey,disabled=True),Button(emoji='🇩',style=ButtonStyle.grey,disabled=True)]])
 		
 		if int(ansch.custom_id) == ansloc:
-			await message.edit(embed=discord.Embed(title='Win',description=f'What is the capital of `{quizans["name"]["common"]}`: \nAnswer: `{quizans["capital"][0]}`', color=0x3cb556, timestamp = datetime.utcnow()),components=await winbtn(ansloc))
+			await message.edit(embed=discord.Embed(title='Win',description=f'What is the capital of `{quizans["name"]["common"]}`: \nAnswer: `{quizans["capital"][0]}`', color=0x3cb556, timestamp = datetime.utcnow()).set_footer(text=ctx.author,icon_url=ctx.author),components=await winbtn(ansloc))
 		else:
 			qta = await losebtn(ctx,int(ansch.custom_id),ansloc)
-			await message.edit(embed=discord.Embed(title='Lose',description=f'What is the capital of `{quizans["name"]["common"]}`: \nSelected Answer: `{btnans[0][qta[1]-1].label}` \nReal Answer: `{quizans["capital"][0]}`',color=0xfa8e23, timestamp = datetime.utcnow()),components=qta[0])
+			await message.edit(embed=discord.Embed(title='Lose',description=f'What is the capital of `{quizans["name"]["common"]}`: \nSelected Answer: `{btnans[0][qta[1]-1].label}` \nReal Answer: `{quizans["capital"][0]}`',color=0xfa8e23, timestamp = datetime.utcnow()).set_footer(text=ctx.author,icon_url=ctx.author),components=qta[0])
 
 def setup(bot: commands.Bot):
 	cmdlogger.info("Loading CountryQuiz")
