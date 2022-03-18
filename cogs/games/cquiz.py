@@ -4,12 +4,17 @@ import random
 import aiohttp
 from datetime import datetime
 import asyncio
+import json
 from discord.ext import commands
 from discord_slash import cog_ext, SlashContext
 from discord_slash.utils.manage_commands import create_option
 from discord_components import Button, ButtonStyle
-# flags
-# add LB
+try:
+	print("Successfully loaded quizlb.json")
+	with open('data/quizlb.json') as f:
+		amounts = json.load(f)
+except FileNotFoundError:
+	print("Could not load quizlb.json")
 
 class CountryQuiz(commands.Cog):
 	def __init__(self, bot):
@@ -31,11 +36,21 @@ class CountryQuiz(commands.Cog):
 			return await message.edit(embed=await toembed(f'What is the capital of `{quizans["name"]}`: \nAnswer: `{quizans["capital"]}`'),components=[[Button(emoji="🇦",style=ButtonStyle.grey,disabled=True),Button(emoji='🇧',style=ButtonStyle.grey,disabled=True),Button(emoji="🇨",style=ButtonStyle.grey,disabled=True),Button(emoji='🇩',style=ButtonStyle.grey,disabled=True)]])
 		
 		if int(ansch.custom_id) == ansloc:
-			await message.edit(embed=discord.Embed(title='Win',description=f'What is the capital of `{quizans["name"]}`: \nAnswer: `{quizans["capital"]}`', color=0x3cb556, timestamp = datetime.utcnow()).set_footer(text=ctx.author,icon_url=ctx.author.avatar_url),components=await winbtn(ansloc))
+			with open('data/quizlb.json', 'r+') as f:
+				data = json.load(f)
+				if str(ctx.author.id) not in amounts.keys():
+					amounts[str(ctx.author.id)] = 1
+					_save()
+				else:
+					amounts[str(ctx.author.id)] += 1
+					_save()
+			await message.edit(embed=discord.Embed(title='Win',description=f'What is the capital of `{quizans["name"]}`: \nAnswer: `{quizans["capital"]}`', color=0x3cb556, timestamp = datetime.utcnow()).set_footer(text=f'{ctx.author} | {amounts[str(ctx.author.id)]} Point(s)',icon_url=ctx.author.avatar_url),components=await winbtn(ansloc))
 		else:
 			qta = await losebtn(int(ansch.custom_id),ansloc)
 			await message.edit(embed=discord.Embed(title='Lose',description=f'What is the capital of `{quizans["name"]}`: \nSelected Answer: `{btnans[0][qta[1]-1].label}` \nReal Answer: `{quizans["capital"]}`',color=0xfa8e23, timestamp = datetime.utcnow()).set_footer(text=ctx.author,icon_url=ctx.author.avatar_url),components=qta[0])
-
+def _save():
+    with open('data/quizlb.json', 'w+') as f:
+        json.dump(amounts, f)
 def setup(bot: commands.Bot):
 	cmdlogger.info("Loading CountryQuiz")
 	bot.add_cog(CountryQuiz(bot))
