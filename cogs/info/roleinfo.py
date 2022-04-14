@@ -1,5 +1,5 @@
 from datetime import datetime
-from utils import cmdlogger, permcheck
+from utils import permcheck
 
 import discord
 from discord.ext import commands
@@ -29,5 +29,5 @@ class RoleInfo(commands.Cog):
 		await roleinfoemb(ctx, role)
 		
 def setup(bot: commands.Bot):
-	cmdlogger.info("Loading RoleInfo")
+	print("Loading RoleInfo")
 	bot.add_cog(RoleInfo(bot))

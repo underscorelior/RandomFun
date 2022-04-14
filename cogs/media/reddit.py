@@ -9,7 +9,6 @@ import ast
 import inspect
 import io
 import textwrap
-from utils import cmdlogger
 import traceback
 from contextlib import redirect_stdout
 
@@ -82,5 +81,5 @@ class reddit(commands.Cog):
 		await self.getSub(ctx,search)
 
 def setup(bot):
-	cmdlogger.info("Loading Reddit")
+	print("Loading Reddit")
 	bot.add_cog(reddit(bot))

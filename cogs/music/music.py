@@ -2,7 +2,6 @@ from discord.ext import commands
 import discord
 import asyncio
 import youtube_dl
-from utils import cmdlogger
 import math
 from urllib import request
 from utils import Video
@@ -151,7 +150,7 @@ class Music(commands.Cog):
 
     def _vote_skip(self, channel, member):
         """Register a vote for `member` to skip the song playing."""
-        cmdlogger.info(f"{member.name} votes to skip")
+        print(f"{member.name} votes to skip")
         state = self.get_state(channel.guild)
         state.skip_votes.add(member)
         users_in_channel = len([
@@ -160,7 +159,7 @@ class Music(commands.Cog):
         if (float(len(state.skip_votes)) /
                 users_in_channel) >= 0.5:
             # enough members have voted to skip, so skip the song
-            cmdlogger.info(f"Enough votes, skipping...")
+            print(f"Enough votes, skipping...")
             channel.guild.voice_client.stop()
 
     def _play_song(self, bot, state, song):
@@ -244,7 +243,7 @@ class Music(commands.Cog):
             try:
                 video = Video(url, ctx.author)
             except youtube_dl.DownloadError as e:
-                cmdlogger.warn(f"Error downloading video: {e}")
+                print(f"Error downloading video: {e}")
                 await ctx.send(
                     "There was an error downloading your video, sorry.")
                 return
@@ -265,7 +264,7 @@ class Music(commands.Cog):
                 self._play_song(bot, state, video)
                 message = await ctx.send("", embed=video.get_embed())
                 await self._add_reaction_controls(message)
-                cmdlogger.info(f"Now playing '{video.title}'")
+                print(f"Now playing '{video.title}'")
             else:
                 raise commands.CommandError(
                     "You need to be in a voice channel to do that.")
@@ -331,5 +330,5 @@ class GuildState:
     def is_requester(self, user):
         return self.now_playing.requested_by == user
 def setup(bot: commands.Bot):
-	cmdlogger.info("Loading Music")
+	print("Loading Music")
 	bot.add_cog(Music(bot))

@@ -5,7 +5,6 @@ import discord
 from discord.ext import commands
 from discord_slash import cog_ext, SlashContext	
 from utils import getbal
-from utils import cmdlogger
 #add markets, making stocks, making coins, etc
 #mining with random math problems to get some coins
 
@@ -32,5 +31,5 @@ class Bal(commands.Cog):
 		
 
 def setup(bot: commands.Bot):
-	cmdlogger.info("Loading Bal")
+	print("Loading Bal")
 	bot.add_cog(Bal(bot))

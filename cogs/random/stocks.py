@@ -7,7 +7,7 @@ import finnhub
 import asyncio
 import datetime
 from dotenv import load_dotenv
-from utils import cmdlogger, erremb
+from utils import erremb
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException, ElementNotInteractableException
 
@@ -101,5 +101,5 @@ class Stocks(commands.Cog):
             await stockcd(ctx, self.bot, stock)
         
 def setup(bot: commands.Bot):
-    cmdlogger.info("Loading Stocks")
+    print("Loading Stocks")
     bot.add_cog(Stocks(bot))

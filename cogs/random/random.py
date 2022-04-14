@@ -5,7 +5,7 @@ import sys
 import asyncio
 from datetime import datetime
 from pywikihow import search_wikihow
-from utils import cmdlogger, logger, format_seconds
+from utils import format_seconds
 
 import discord
 from discord.ext import commands
@@ -99,7 +99,7 @@ class Random(commands.Cog):
         message = await ctx.send(content=await whs(wiki),components=delwh)
         try: 
             delbtn = await self.bot.wait_for('button_click',check=lambda inter: inter.message.id == message.id, timeout=120)
-            cmdlogger.info("WikiHow query deleted")
+            print("WikiHow query deleted")
         except asyncio.TimeoutError: 
             await message.reply("Delete timed out")
             for row in delwh: row.disable_components()
@@ -115,9 +115,9 @@ class Random(commands.Cog):
     @commands.command()
     async def restart(self,ctx):
         if ctx.author.id == 454356237614841870:
-            logger.warning("Restarting Bot"); await ctx.send("Restarting")
+            print("Restarting Bot"); await ctx.send("Restarting")
             python = sys.executable; os.execl(python, python, *sys.argv)
 
 def setup(bot: commands.Bot):
-    cmdlogger.info("Loading Random")
+    print("Loading Random")
     bot.add_cog(Random(bot))

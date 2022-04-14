@@ -5,7 +5,6 @@ from discord.ext import commands
 from discord_slash import cog_ext, SlashContext, ComponentContext
 from discord_slash.model import ButtonStyle
 from discord_slash.utils.manage_components import create_button, create_actionrow, wait_for_component
-from utils import cmdlogger
 beating_table = {
 	'🪨': '📰',
 	'✂️': '🪨',
@@ -55,14 +54,14 @@ class RPS(commands.Cog):
 			
 			if button_ctx.component['custom_id'] == rpscom:
 				await rpsemb1(ctx,"Tie",button_ctx.component['custom_id'],rpscom,0xFF5E13, message)
-				cmdlogger.info("tie")
+
 			else:
 				if button_ctx.component['custom_id'] == beating_table[rpscom]:
 					await rpsemb1(ctx,"Win!",button_ctx.component['custom_id'],rpscom,0x008080, message)
-					cmdlogger.info("win")
+
 				else:
 					await rpsemb1(ctx,"Lose.",button_ctx.component['custom_id'],rpscom,0x8c1c12, message)
-					cmdlogger.info("lose")
+					
 		else:
 			startembed = discord.Embed(title="Use of RPS",color=0x263340)
 			startembed.add_field(name="Press the buttons: ",value="🪨 for rock. \n📰 for paper . \n✂️ for scissors.")
@@ -77,15 +76,15 @@ class RPS(commands.Cog):
 			await button_ctx_2.send(f"Chosen {button_ctx_2.component['custom_id']}",hidden=True)
 			if button_ctx.component['custom_id'] == button_ctx_2.component['custom_id']:
 				await rpstie(ctx,str(button_ctx.author),button_ctx.component['custom_id'],str(button_ctx_2.author),message)
-				cmdlogger.info("tie")
+
 			else:
 				if button_ctx.component['custom_id'] == beating_table[button_ctx_2.component['custom_id']]:
 					await rpsemb2(ctx,str(button_ctx.author),button_ctx.component['custom_id'],str(button_ctx_2.author),button_ctx_2.component['custom_id'],message)
-					cmdlogger.info("win")
+
 				else:
 					await rpsemb2(ctx,str(button_ctx_2.author),button_ctx_2.component['custom_id'],str(button_ctx.author),button_ctx.component['custom_id'],message)
-					cmdlogger.info("lose")
+					
 
 def setup(bot: commands.Bot):
-	cmdlogger.info("Loading RPS")
+	print("Loading RPS")
 	bot.add_cog(RPS(bot))

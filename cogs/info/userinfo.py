@@ -1,5 +1,5 @@
 from datetime import datetime
-from utils import permcheck, cmdlogger
+from utils import permcheck
 
 import discord
 from discord.ext import commands
@@ -106,5 +106,5 @@ class UserInfo(commands.Cog):
 		
 
 def setup(bot: commands.Bot):
-	cmdlogger.info("Loading Userinfo")
+	print("Loading Userinfo")
 	bot.add_cog(UserInfo(bot))

@@ -7,7 +7,6 @@ from discord_slash import cog_ext, SlashContext, ComponentContext
 from discord_slash.model import ButtonStyle
 from discord_slash.utils.manage_components import create_button, create_actionrow, wait_for_component
 from utils import getbal, save
-from utils import cmdlogger
 
 class BJ(commands.Cog):
 	def __init__(self, bot):
@@ -55,5 +54,5 @@ class BJ(commands.Cog):
 		save(money + (bet * win),ctx.author.id)
 
 def setup(bot: commands.Bot):
-	cmdlogger.info("Loading BJ")
+	print("Loading BJ")
 	bot.add_cog(BJ(bot))

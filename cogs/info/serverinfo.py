@@ -1,5 +1,4 @@
 import datetime
-from utils import cmdlogger
 
 import discord
 from discord.ext import commands
@@ -88,5 +87,5 @@ class ServerInfo(commands.Cog):
 		
 
 def setup(bot: commands.Bot):
-	cmdlogger.info("Loading ServerInfo")
+	print("Loading ServerInfo")
 	bot.add_cog(ServerInfo(bot))

@@ -2,7 +2,6 @@ import datetime
 import discord
 from discord.ext import commands
 from discord_slash import cog_ext, SlashContext
-from utils import cmdlogger
 import aiohttp
 from dotenv import load_dotenv
 import os
@@ -122,5 +121,5 @@ class ZombiesHYP(commands.Cog):
 			await ctx.send("`{}` is not a valid username".format(username))
 
 def setup(bot: commands.Bot):
-	cmdlogger.info("Loading ZombiesHYP")
+	print("Loading ZombiesHYP")
 	bot.add_cog(ZombiesHYP(bot))

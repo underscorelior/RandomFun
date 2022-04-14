@@ -1,4 +1,4 @@
-from utils import cmdlogger, winbtn, losebtn, checkans, toembedt, toembed
+from utils import winbtn, losebtn, checkans, toembedt, toembed
 import discord
 import random
 import json
@@ -99,5 +99,5 @@ def _save():
     with open('data/quizlb.json', 'w+') as f:
         json.dump(amounts, f)
 def setup(bot: commands.Bot):
-	cmdlogger.info("Loading Quiz")
+	print("Loading Quiz")
 	bot.add_cog(FlagQuiz(bot))

@@ -3,7 +3,6 @@ import math
 import psutil
 import pathlib
 import os, os.path
-from utils import cmdlogger
 from datetime import datetime
 
 import discord
@@ -74,5 +73,5 @@ class BotInfo(commands.Cog):
 		await botinfemb(ctx,self.bot, self.start_time)	
 		
 def setup(bot: commands.Bot):
-	cmdlogger.info("Loading Botinfo")
+	print("Loading Botinfo")
 	bot.add_cog(BotInfo(bot))

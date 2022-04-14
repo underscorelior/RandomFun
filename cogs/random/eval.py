@@ -6,7 +6,6 @@ import textwrap
 import traceback
 from contextlib import redirect_stdout
 
-from utils import cmdlogger
 from discord.ext import commands
 
 class Eval(commands.Cog):
@@ -102,5 +101,5 @@ class Eval(commands.Cog):
                 await ctx.message.add_reaction('\u2705')
     
 def setup(bot):
-    cmdlogger.info("Loading Eval")
+    print("Loading Eval")
     bot.add_cog(Eval(bot))

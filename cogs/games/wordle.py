@@ -1,4 +1,3 @@
-from utils import cmdlogger
 import discord
 import random
 from discord.ext import commands
@@ -34,5 +33,5 @@ class Wordle(commands.Cog):
 		
 
 def setup(bot: commands.Bot):
-	cmdlogger.info("Loading Wordle")
+	print("Loading Wordle")
 	bot.add_cog(Wordle(bot))

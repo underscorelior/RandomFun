@@ -2,7 +2,6 @@ import datetime
 import discord
 from discord.ext import commands
 from discord_slash import cog_ext, SlashContext
-from utils import cmdlogger
 import aiohttp
 from dotenv import load_dotenv
 import os
@@ -56,5 +55,5 @@ class ServerMC(commands.Cog):
 		await ctx.send(embed=embed)
 
 def setup(bot: commands.Bot):
-	cmdlogger.info("Loading ServerMC")
+	print("Loading ServerMC")
 	bot.add_cog(ServerMC(bot))
