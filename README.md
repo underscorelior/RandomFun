@@ -1,2 +1,2 @@
 # RandomFun
-pretty cool bot innit mate
+Discord Bot
